@@ -58,3 +58,5 @@ try {
 
 // Start server
 sails.lift(rc('sails'));
+
+(function () {console.log('is this working?')})();

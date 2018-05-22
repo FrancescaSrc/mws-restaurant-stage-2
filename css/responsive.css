@@ -1,0 +1,335 @@
+main, section, #restaurants-list, section#reviews-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.inside #map-container{order: 2}
+#map-container {order:0;}
+#restaurant-container{order:1;}		
+#reviews-container {order: 2;}
+
+@media screen and (max-width:501px){
+	
+	/* main general */
+	
+	#filter-results{
+		width: 98vw;
+		margin: 0 auto;
+	}
+	.inside main{
+		width: 90vw;
+		margin: 5px auto;
+		min-width: 320px;
+		
+	}
+	
+	#neighborhoods-select, #cuisines-select{
+		display: flex;
+		justify-content: center;
+		padding:2px;
+		margin:10px;
+		font-size:4vw;
+		
+	}
+	
+	header h1 a{
+		font-size: 1.2em; /*fallback for if browser does not support vw */
+		font-size:7vw;
+		letter-spacing: 4px;
+	}
+	
+	h2 {
+		font-size: 1.2em;		
+		padding: 0;
+		
+	}
+	
+	/* Restaurant listing */
+	
+	.restaurant-listing{
+		width: 100%;
+		min-width: 300px;
+		display: grid;
+		grid-template-columns: 55% auto;
+		
+	}
+	
+	.restaurant-listing h3{
+		grid-area: 1 / span 2 / 2 / 3;
+	}
+	
+	.restaurant-listing picture{ 
+		grid-area: 2 / 2 / span 2 / 2;
+	}
+	
+	.restaurant-listing img{ 
+		margin-top: 5px;
+		margin-left:-5px;
+		width: 50vw;
+	}
+	
+	.restaurant-listing p.neighborhood{ 
+		grid-area: 2 / 1 / 2 / 1;
+		
+	}
+	.restaurant-listing p.address{ 
+		grid-area: 3 / 1 / 3 / 1;
+		
+	}		
+	
+	.restaurant-listing h3{
+		font-size: 1.2em;		
+		padding: 10px 0;
+		
+	}
+	
+	
+	#restaurant-list a{
+		font-size:0.8em;	
+		
+	}
+	
+	.restaurant-listing a, #restaurants-list a {
+		padding: 10px;
+		grid-area: 4 / 1 / 4 / span 2;
+		margin:0;
+		border-radius: 0px 0px 15px 0px;
+	}
+	
+	/* restaurant details */
+	#restaurant-img {
+		width: 100vw;
+		height: calc(100vw*0.75); 
+	}
+	
+	
+}
+
+
+@media screen and (min-width:502px){
+	
+	/*  main general  */	
+	#filter-results{
+		width: 95vw;
+		margin: 5px auto;
+		
+	}
+	#neighborhoods-select, #cuisines-select{
+		padding:2px 5px;
+		margin:10px 8px;
+		font-size:1.2em;
+		max-width:350px;
+	}
+	
+	nav h1 a{
+		font-size: 1em; /*fallback for if browser does not support vw */
+		font-size:4.2vw;
+	}
+	
+	/* restaurant listing */	
+	.restaurant-listing{
+		border-radius: 20px 0px 20px 0px;
+		font-size: 1em;
+	}
+	
+	
+	
+	#restaurants-list p{ 
+		min-height: 10px;
+		
+	}
+	
+	#restaurants-list a {
+		display: block;
+		margin: 0;
+		padding: 15px;
+		border-radius: 0px 0px 20px 0px;
+	}
+	
+	
+	.restaurant-listing img{
+		width: 100vw;
+		object-fit: cover;
+		margin: 0 auto;
+		
+	}
+	/*Restaurant details */
+	
+	#restaurant-container{
+		font-size: 1.2em;
+	}
+	
+	.restaurant-ratings{
+		width:100%;
+		font-size: 1em;			  
+	}
+	
+	p#restaurant-cuisine, h2#restaurant-name {
+		font-size: 1.5em;
+		padding: 5px 0;
+		letter-spacing: 5px;
+		
+	}
+	
+	#restaurant-img {
+		width: 100vw;
+		height: calc(100vw*0.75); 
+	}
+	
+}
+
+@media screen and (min-width:580px){
+	.inside main{
+		width: 90vw;
+		margin: 0px auto;
+		
+	}
+	
+	.restaurant-container img{
+		object-fit: cover;
+		width: 100vw;
+		height:calc(100vw*0.75);
+	}
+	
+}
+
+
+@media screen and (min-width:700px){
+	
+	.inside main{
+		width: 95vw;
+		margin: 0px auto;		
+	}
+	
+	/*Restaurant list */
+	.restaurant-listing{ 
+		width: 47%;
+		margin: 5px;
+		min-width: 300px;
+	}
+	
+	/*Restaurant details */
+	
+	.inside #map-container {
+		margin-left: 0.5%;
+		width:49.5%;
+	}
+	
+	#restaurant-container{
+		width:49.5%;
+		margin-right:0.5%;
+		font-size: 1em;		  	
+	}
+	
+	#reviews-container{		
+		width:100%
+	}
+	
+	.restaurant-ratings{
+		width:48%;
+		margin: 5px;
+	}
+	
+	#restaurant-img {
+		width: 50vw;
+		height: calc(47.5vw*0.75); 
+	}
+	
+	img#restaurant-img.restaurant-img   {		
+		width: 50vw;
+		object-fit: cover;
+		
+	}
+	
+	
+	li.restaurant-ratings:last-child{margin-right:0;}
+	.inside #map-container{order: 2}
+	#map-container {order:0;}
+	#restaurant-container{order:1;}		
+	#reviews-container {order: 3;}
+	
+}
+
+
+
+@media screen and (min-width:950px){
+	
+	main{
+		width: 90vw;
+		margin: 0 auto;
+		
+		
+	}
+	header a{
+		font-size: 3vw;
+	}
+	
+	/*Restaurant list */
+	.restaurant-listing{ 
+		width: 31%;
+		margin-left: 1%;
+		font-size: 1em;
+		min-width: 200px;
+	}
+	
+	.restaurant-listing img{ 
+		width: 30vw;
+	}
+	
+	.restaurant-listing h3{
+		letter-spacing: 0px;
+	}
+	/*Restaurant details */
+	h2#restaurant-name{padding: 10px 0;}
+	
+	.restaurant-ratings{
+		width:32%;
+	}
+	
+	p.comment{
+		min-height: 350px;
+	}
+	#restaurant-hours{
+		font-size: 1.2em;
+		
+	}
+	
+	#restaurant-img {
+		width: 45vw;
+		height: calc(45vw*0.75); 
+	}
+	
+	img#restaurant-img.restaurant-img   {		
+		width: 50vw;
+		object-fit: cover;
+		
+	}
+	
+	
+}
+
+@media screen and (min-width:1300px){
+	
+	main{
+		max-width: 80vw;
+		margin: 0 auto;
+		max-width: 1200px;
+	}
+	
+	
+	#restaurant-img {
+		width: 50vw;
+		height: calc(600px*0.75); 
+	}
+	
+	img#restaurant-img.restaurant-img   {		
+		width: 50vw;
+		object-fit: cover;
+		
+	} 
+	
+	
+}
+
+
+
