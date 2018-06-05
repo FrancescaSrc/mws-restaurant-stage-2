@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="css/styles.css">
 		<link rel="stylesheet" href="css/responsive.css" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+		<script src="js/idb.js"></script>
 		<title>Restaurant Reviews</title>
 	</head>
 	
@@ -23,10 +24,10 @@
 		<main id="maincontent">
 			<section class="filter-options">
 				<select id="neighborhoods-select" name="neighborhoods" aria-label="select neighborhoods" onchange="updateRestaurants()">
-					<option value="all">All Neighborhoods</option>
+					<option value="all" selected="all">All Neighborhoods</option>
 				</select>
 				<select id="cuisines-select" name="cuisines" aria-label="select cuisines" onchange="updateRestaurants()">
-					<option value="all">All Cuisines</option>
+					<option value="all" selected="all">All Cuisines</option>
 				</select>
 				
 				
@@ -41,9 +42,11 @@
 			</section>
 		</main>
 		
-		<script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
+		<script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script> 
 		<script type="application/javascript" charset="utf-8" src="js/main.js"></script>
+
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH9_vNeO--dXm-22zmcyTtxGBPjALuz0A&libraries=places&callback=initMap"></script>
+
 		
 		
 		<footer id="footer">
