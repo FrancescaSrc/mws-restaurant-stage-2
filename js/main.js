@@ -1,43 +1,11 @@
-//import idb from 'idb.js';
-//import '/idb.js';
 let restaurants,
 neighborhoods,
 cuisines
 var map
 var markers = []
+var indexedDB
 
 
- var dbPromise =idb.open('Rest-rev', 1, function(upgradeDb){
- 	switch(upgradeDb.oldVersion){
- 		case 0:
- 		var keyValStore = upgradeDb.createObjectStore('keyval');
- 		keyValStore.put('world', 'hallo');
- 		case 1:
- 		upgradeDb.createObjectStore('restaurants', {keyPath: 'name'})
- 	}
- 	
- 	
- }
-);
-//Reading from the database
-
- dbPromise.then(function(db){
- 	var tx=db.transaction('keyval');
- 	var keyValStore=tx.objectStore('keyval');
- 	return keyValStore.get('hallo');
- }).then(function(val){
- 	console.log('the value of "hallo" is:', val);
- });
-
-//Adding to the database
-dbPromise.then(function(db){
-	var tx = db.transaction('keyval', 'readwrite');
-	var keyValStore = tx.objectStore('keyval');
-	keyValStore.put('bar', 'foo');
-	return tx.complete;
-}).then(function(){
-	console.log('Added foo, bar to keyval');
-});
 
 /**
 	* Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -45,14 +13,16 @@ dbPromise.then(function(db){
 document.addEventListener('DOMContentLoaded', (event) => {
 	fetchNeighborhoods();
 	fetchCuisines();
+
 });
+
 
 /**
 	* Fetch all neighborhoods and set their HTML.
 */
 fetchNeighborhoods = () => {
-	DBHelper.fetchNeighborhoods((error, neighborhoods) => {
-		
+	
+	DBHelper.fetchNeighborhoods((error, neighborhoods) => {		
 			self.neighborhoods = neighborhoods;
 			fillNeighborhoodsHTML();
 		
@@ -248,17 +218,17 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 }
 
 
-// if ('serviceWorker' in navigator) {
-// 	window.addEventListener('load', function() {
-// 		navigator.serviceWorker.register('sw.js').then(function(registration) {
-// 			// Registration was successful
-// 			console.log('ServiceWorker registration successful with scope: ', registration.scope);
-// 			}, function(err) {
-// 			// registration failed :(
-// 			console.log('ServiceWorker registration failed: ', err);
-// 		});
-// 	});
-//}
+/*if ('serviceWorker' in navigator) {
+	window.addEventListener('load', function() {
+		navigator.serviceWorker.register('sw.js').then(function(registration) {
+			// Registration was successful
+			console.log('ServiceWorker registration successful with scope: ', registration.scope);
+			}, function(err) {
+			// registration failed :(
+			console.log('ServiceWorker registration failed: ', err);
+		});
+	});
+}*/
 
 
 

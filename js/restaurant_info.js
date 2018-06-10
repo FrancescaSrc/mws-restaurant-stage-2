@@ -5,9 +5,9 @@ var map;
 	* Initialize Google map, called from HTML.
 */
 window.initMap = () => {
-	fetchRestaurantFromURL((error, restaurant) => {
-		if (error) { // Got an error!
-			console.error(error);
+	fetchRestaurantFromURL((restaurant) => {
+		if (!restaurant) { // Got an error!
+			console.error("error: restaurant not found");
 			} else {
 			self.map = new google.maps.Map(document.getElementById('map'), {
 				zoom: 16,
@@ -23,26 +23,34 @@ window.initMap = () => {
 /**
 	* Get current restaurant from page URL.
 */
-fetchRestaurantFromURL = (callback) => {
-	if (self.restaurant) { // restaurant already fetched!
-		callback(null, self.restaurant)
-		return;
-	}
-	const id = getParameterByName('id');
-	if (!id) { // no id found in URL
-		error = 'No restaurant id in URL'
-		callback(error, null);
-		} else {
-		DBHelper.fetchRestaurantById(id, (error, restaurant) => {
-			self.restaurant = restaurant;
-			if (!restaurant) {
-				console.error(error);
+		fetchRestaurantFromURL = (callback) => {
+			if (self.restaurant) { // restaurant already fetched!
+				callback(null, self.restaurant)
 				return;
 			}
-			fillRestaurantHTML();
-			callback(null, restaurant)
-		});
-	}
+			const id = getParameterByName('id');
+			if (!id) { // no id found in URL
+				error = 'No restaurant id in URL'
+				callback(error, null);
+				} else {
+					console.log('id is '+ id);
+
+				DBHelper.fetchRestaurantById(id, (restaurant) => {
+								self.restaurant = restaurant;
+								if (!restaurant) {
+									console.error("error: restaurant not found");
+									return;
+								}
+					fillRestaurantHTML();
+					callback(restaurant);
+		   
+		   });
+					
+				
+
+	// 	});
+
+	 }
 }
 
 /**
