@@ -3,7 +3,7 @@ var map;
 
 /**
 	* Initialize Google map, called from HTML.
-*/
+
 window.initMap = () => {
 	fetchRestaurantFromURL((restaurant) => {
 		if (!restaurant) { // Got an error!
@@ -18,7 +18,7 @@ window.initMap = () => {
 			DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
 		}
 	});
-}
+}*/
 
 /**
 	* Get current restaurant from page URL.
@@ -33,7 +33,7 @@ window.initMap = () => {
 				error = 'No restaurant id in URL'
 				callback(error, null);
 				} else {
-					console.log('id is '+ id);
+				//	console.log('id is '+ id);
 
 				DBHelper.fetchRestaurantById(id, (restaurant) => {
 								self.restaurant = restaurant;

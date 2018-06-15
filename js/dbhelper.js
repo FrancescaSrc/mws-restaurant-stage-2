@@ -12,8 +12,20 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
-  static opendDB(){
+
+  static openDB(){
+   
    return idb.open('Restaurants-reviews', 1, function(upgradeDb) {
+    var restStore = upgradeDb.transaction.objectStore('restaurants');
+    console.log('restStore is empty', restStore);
+    
+    });
+  }
+
+  static createStore(response){
+    var restaurants=response;
+   // console.log('create', restaurants)
+   idb.open('Restaurants-reviews', 1, function(upgradeDb) {
 
     var restStore = upgradeDb.createObjectStore('restaurants', {keyPath: 'id'});
     //create index for cuisine property
@@ -21,18 +33,12 @@ class DBHelper {
     //create index for neighborhood property
     restStore.createIndex('by-neighborhood', 'neighborhood');
     
-    });
-
-  
-   dbPromise.then(function(db) {
+    }).then(function(db) {
     // or the very first load, there's no point fetching
     // posts from IDB
         if (!db) { return;}
-        
-           fetch(DBHelper.DATABASE_URL)
-          .then(response => response.json())
-          .then(response =>{            
-              response.forEach(restaurant =>{
+                
+              restaurants.forEach(restaurant =>{
               var tx= db.transaction('restaurants', 'readwrite');
               var restStore= tx.objectStore('restaurants');
               restStore.put(restaurant);
@@ -40,7 +46,7 @@ class DBHelper {
               });
           });
 
-    });
+    return restaurants;
   }
 
 /**
@@ -48,17 +54,32 @@ class DBHelper {
    */
   static fetchRestaurants(callback) {
      if (!navigator.serviceWorker) {
-    fetchRestaurantsWithoutIDB(callback);
+    return null;
   }
-  
-   DBHelper.opendDB().then(function(db){
-    var tx= db.transaction('restaurants');
+
+    if(indexedDB in window){
+
+   DBHelper.openDB().then(function(db){
+    console.log('fetched from indexDB ', db);
+   
+      var tx= db.transaction('restaurants');
     var restStore= tx.objectStore('restaurants');
     return restStore.getAll();
+
   }).then(function(restaurants){
-   console.log('restStore contents: ', restaurants);
+   
     return callback(restaurants);
-  }); 
+  });
+ } else {
+  fetch(DBHelper.DATABASE_URL)
+      .then(response => response.json())
+      .then(response => DBHelper.createStore(response))
+      .then(callback)
+      .catch(err=> console.log(err));
+ }
+
+ 
+    
     
 }
 
@@ -103,14 +124,14 @@ class DBHelper {
    */
   static fetchRestaurantByIdLocally(id, callback) {
 
-  var dbPromise=DBHelper.opendDB();
+  var dbPromise=DBHelper.openDB();
 
        dbPromise.then(function(db){
     var tx= db.transaction('restaurants');
     var restStore= tx.objectStore('restaurants');
     return restStore.get(parseInt(id));
   }).then(function(restaurant){
-   console.log('restStore contents res1: ', restaurant);
+ //  console.log('restStore contents res1: ', restaurant);
      callback(restaurant);
   }); 
     

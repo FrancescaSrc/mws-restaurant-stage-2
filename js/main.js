@@ -3,8 +3,6 @@ neighborhoods,
 cuisines
 var map
 var markers = []
-var indexedDB
-
 
 
 /**
@@ -21,7 +19,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	* Fetch all neighborhoods and set their HTML.
 */
 fetchNeighborhoods = () => {
-	
 	DBHelper.fetchNeighborhoods((error, neighborhoods) => {		
 			self.neighborhoods = neighborhoods;
 			fillNeighborhoodsHTML();
@@ -77,19 +74,38 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 }
 
 /**
-	* Initialize Google map, called from HTML.
+	* Initialize Google map, called from HTML from both index and restaurant page
 */
+
 window.initMap = () => {
-	let loc = {
-		lat: 40.722216,
-		lng: -73.987501
-	};
-	self.map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 12,
-		center: loc,
-		scrollwheel: false
-	});
-	updateRestaurants();
+
+  if(!document.getElementById('filter-results')){
+    fetchRestaurantFromURL((restaurant) => {
+    if (!restaurant) { // Got an error!
+      console.error("error: restaurant not found");
+      } else {
+      self.map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: restaurant.latlng,
+        scrollwheel: false
+      });
+      fillBreadcrumb();
+      DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
+    } 
+  });
+  }else{
+    let loc = {
+    lat: 40.722216,
+    lng: -73.987501
+  };
+  self.map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: loc,
+    scrollwheel: false
+  });
+  updateRestaurants();
+  }
+  
 }
 
 /**
@@ -218,7 +234,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 }
 
 
-/*if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
 	window.addEventListener('load', function() {
 		navigator.serviceWorker.register('sw.js').then(function(registration) {
 			// Registration was successful
@@ -228,7 +244,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 			console.log('ServiceWorker registration failed: ', err);
 		});
 	});
-}*/
+}
 
 
 

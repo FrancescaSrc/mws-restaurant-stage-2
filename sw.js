@@ -1,4 +1,4 @@
-var staticCacheName = 'restview-2';
+var staticCacheName = 'restview-1';
 var contentImgsCache = 'restview-imgs';
 var allCaches = [
 	staticCacheName,
@@ -15,10 +15,7 @@ self.addEventListener('install', function(event) {
 			'./restaurant.html',
 			'./css/styles.css',
 			'./css/responsive.css',
-			'./js/main.js',
-			'./js/restaurant_info.js',
-			'./js/dbhelper.js',
-			'./data/restaurants.json',
+			'./js/all.js',
 			'https://fonts.gstatic.com/s/roboto/v15/2UX7WLTfW3W8TclTUvlFyQ.woff',
 			'https://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff'
 			
@@ -56,11 +53,11 @@ self.addEventListener('fetch', function(event) {
 	
     if (requestUrl.origin === location.origin) {
         
-		if (requestUrl.pathname.startsWith('/mws-restaurant-stage-2/images/')) {
+		if (requestUrl.pathname.startsWith('/Stage-2/images/')) {
 			event.respondWith(servePhoto(event.request));
 			return;
 		}
-		if (requestUrl.pathname.startsWith('/mws-restaurant-stage-2/img/')) {
+		if (requestUrl.pathname.startsWith('/Stage-2/img/')) {
 			event.respondWith(servePhoto(event.request));
 			return;
 		}
