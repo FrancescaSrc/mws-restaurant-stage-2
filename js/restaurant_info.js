@@ -18,8 +18,8 @@ window.initMap = () => {
 			DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
 		}
 	});
-}*/
-
+}
+*/
 /**
 	* Get current restaurant from page URL.
 */
@@ -67,6 +67,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 	image.alt = 'restaurant '+restaurant.name;
 	image.className = 'restaurant-img';
 	image.sizes="(max-width: 501px) 350px, 100vw, (min-width: 501px), 550px, 100vw, (min-width:700px) 550px, 100vw";
+	
 	image.srcset +='./images/'+restaurant.id+'-medium.webp 350w, ./images/'+restaurant.id+'-medium.jpg 350w,';
 	image.srcset +='./images/'+restaurant.id+'-large.webp 550w, ./images/'+restaurant.id+'-large.jpg 550w,';
 	image.srcset +=' ./images/'+restaurant.id+'-large.webp 550w, ./images/'+restaurant.id+'-large.jpg 550w,';
@@ -74,7 +75,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  	image.srcset +='./images/'+restaurant.id+'-large_x2.webp 800w, ./images/'+restaurant.id+'-large_x2.jpg 800w'; 
 	image.src = DBHelper.imageUrlForRestaurant(restaurant);
 	
-	
+/*
+	image.setAttribute('class', 'lazy');
+	console.log(image);
+image.setAttribute('data-srcset','./images/'+restaurant.id+'-medium.webp 350w, ./images/'+restaurant.id+'-medium.jpg 350w, ');
+var attributeImageRest= image.getAttribute('data-srcset');
+attributeImageRest +='./images/'+restaurant.id+'-large.webp 550w, ./images/'+restaurant.id+'-large.jpg 550w,';
+attributeImageRest +='./images/'+restaurant.id+'-large7.webp 700w, ./images/'+restaurant.id+'-large7.jpg 700w,';
+attributeImageRest +='./images/'+restaurant.id+'-large_x2.webp 800w, ./images/'+restaurant.id+'-large_x2.jpg 800w';
+image.setAttribute('data-src', DBHelper.imageUrlForRestaurant(restaurant));
+	*/
 	
 	const address = document.getElementById('restaurant-address');
 	address.setAttribute('tabindex', '0');
@@ -119,6 +129,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 		row.appendChild(time);
 		
 		hours.appendChild(row);
+		var myLazyLoad = new LazyLoad();
 	}
 }
 

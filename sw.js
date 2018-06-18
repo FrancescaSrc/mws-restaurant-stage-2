@@ -14,7 +14,8 @@ self.addEventListener('install', function(event) {
 			'./index.html',
 			'./restaurant.html',
 			'./css/styles.css',
-			'./css/responsive.css',
+			'./css/responsive_min500.css',
+			'./css/responsive_desktop.css',
 			'./js/all.js',
 			'https://fonts.gstatic.com/s/roboto/v15/2UX7WLTfW3W8TclTUvlFyQ.woff',
 			'https://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff'
@@ -53,11 +54,11 @@ self.addEventListener('fetch', function(event) {
 	
     if (requestUrl.origin === location.origin) {
         
-		if (requestUrl.pathname.startsWith('/Stage-2/images/')) {
+		if (requestUrl.pathname.startsWith('/mws-restaurant-stage-2/images/')) {
 			event.respondWith(servePhoto(event.request));
 			return;
 		}
-		if (requestUrl.pathname.startsWith('/Stage-2/img/')) {
+		if (requestUrl.pathname.startsWith('/mws-restaurant-stage-2/img/')) {
 			event.respondWith(servePhoto(event.request));
 			return;
 		}
