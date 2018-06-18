@@ -90,7 +90,7 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
 */
 
 window.initMap = () => {
-debugger;
+
   if(!document.getElementById('filter-results')){
     fetchRestaurantFromURL((restaurant) => {
     if (!restaurant) { // Got an error!
@@ -189,28 +189,33 @@ createRestaurantHTML = (restaurant) => {
 	
 	const picture = document.createElement('picture');
 	
-	// const source = document.createElement('source');
-	// source.media='(max-width: 501px), (min-width: 502px), (min-width:700px), (min-width: 950px)';
-	// source.sizes='(max-width: 501px) 200px, 100vw, (min-width: 502px) 550px, 100vw, (min-width:700px) 350px, 550px, 100vw, (min-width: 950px) 350px, 550px, 100vw' ;
+	 const source = document.createElement('source');
+	source.setAttribute('class', 'lazy');
+	source.media='(max-width: 501px), (min-width: 502px), (min-width:700px), (min-width: 950px)';
+	source.sizes='(max-width: 501px) 200px, 100vw, (min-width: 502px) 550px, 100vw, (min-width:700px) 350px, 550px, 100vw, (min-width: 950px) 350px, 550px, 100vw' ;
+	source.setAttribute('data-srcset','./images/'+restaurant.id+'-small.webp 200w, ./images/'+restaurant.id+'-medium.webp 350w,'
+	+ '/images/'+restaurant.id+'-large.webp 550w, ./images/'+restaurant.id+'-large7.webp 700w, '
+	+'./images/'+restaurant.id+'-medium.webp 350w, ./images/'+restaurant.id+'-large.webp 550w, ./images/'+restaurant.id+'-large7.webp 700w ');
+
 	// source.srcset='./images/'+restaurant.id+'-small.webp 200w, ./images/'+restaurant.id+'-medium.webp 350w, ';
 	// source.srcset +='./images/'+restaurant.id+'-large.webp 550w, ./images/'+restaurant.id+'-large7.webp 700w, ';
 	// source.srcset +='./images/'+restaurant.id+'-medium.webp 350w, ./images/'+restaurant.id+'-large.webp 550w, ./images/'+restaurant.id+'-large7.webp 700w ';
-	// picture.append(source); 
+	// picture.append(source);
+	picture.append(source);
 	const sourceL = document.createElement('source');
-	/*sourceL.media='(max-width: 501px), (min-width: 502px), (min-width:700px), (min-width: 950px)';
+	sourceL.media='(max-width: 501px), (min-width: 502px), (min-width:700px), (min-width: 950px)';
 	sourceL.sizes='(max-width: 501px) 200px, 100vw, (min-width: 502px) 550px, 100vw, (min-width: 700px) 350px, 550px, 100vw, (min-width: 950px) 350px, 550px, 100vw';
-	sourceL.srcset='./images/'+restaurant.id+'-medium.jpg 200w, ./images/'+restaurant.id+'-large.jpg 350w, ';
+	/*sourceL.srcset='./images/'+restaurant.id+'-medium.jpg 200w, ./images/'+restaurant.id+'-large.jpg 350w, ';
 	sourceL.srcset +='./images/'+restaurant.id+'-large.jpg 550w, ./images/'+restaurant.id+'-large7.jpg 700w, ';
 	sourceL.srcset +='./images/'+restaurant.id+'-medium.webp 350w, ./images/'+restaurant.id+'-large.jpg 550w, ./images/'+restaurant.id+'-large7.jpg 700w ';
 */
-sourceL.setAttribute('class', 'lazy');
-sourceL.setAttribute('data-srcset','./images/'+restaurant.id+'-medium.jpg 200w, ./images/'+restaurant.id+'-large.jpg 350w, ');
-var attributeImage= sourceL.getAttribute('data-srcset');
-attributeImage +='./images/'+restaurant.id+'-large.jpg 550w, ./images/'+restaurant.id+'-large7.jpg 700w, ';
-attributeImage +='./images/'+restaurant.id+'-medium.webp 350w, ./images/'+restaurant.id+'-large.jpg 550w, ./images/'+restaurant.id+'-large7.jpg 700w ';
+	sourceL.setAttribute('class', 'lazy');
+	sourceL.setAttribute('data-srcset','./images/'+restaurant.id+'-medium.jpg 200w, ./images/'+restaurant.id+'-large.jpg 350w, '
+	+ './images/'+restaurant.id+'-large.jpg 550w, ./images/'+restaurant.id+'-large7.jpg 700w, '
+	+ './images/'+restaurant.id+'-medium.webp 350w, ./images/'+restaurant.id+'-large.jpg 550w, ./images/'+restaurant.id+'-large7.jpg 700w ');
 
 
-picture.append(sourceL);
+	picture.append(sourceL);
 	const image = document.createElement('img');
 	image.className = 'restaurant-img';
 	image.alt = 'restaurant '+restaurant.name;
